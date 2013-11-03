@@ -1,0 +1,8 @@
+bin/
+bt.csproj
+bt.sln
+*.suo
+build/
+node_modules/
+npm-debug.log
+obj/
