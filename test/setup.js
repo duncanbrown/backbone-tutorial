@@ -2,5 +2,5 @@
 
 mocha.setup({
     ui: 'tdd',
-    globals: ['bTask']
+    globals: ['bTask','gapi', '___jsl']
 });
