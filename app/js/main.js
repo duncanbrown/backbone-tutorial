@@ -1,7 +1,7 @@
 ﻿requirejs.config({
     baseUrl: 'js',
     paths: {
-
+        text: 'lib/text'
     },
     shim: {
         'lib/underscore-min': {
