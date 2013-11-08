@@ -1,4 +1,11 @@
-﻿define(['gapi', 'views/app', 'views/auth', 'collections/tasklists'], function (ApiManager, AppView, AuthView, TaskLists) {
+﻿define([
+    'gapi',
+    'views/app',
+    'views/auth',
+    'views/lists/menu',
+    'collections/tasklists'
+    ],
+    function (ApiManager, AppView, AuthView, ListMenuView, TaskLists) {
     var App = function () {
         
         this.views.app = new AppView();
@@ -7,14 +14,17 @@
         this.views.auth = new AuthView(this);
         this.views.auth.render();
 
+        this.collections.lists = new TaskLists();
+
+        this.views.listMenu = new ListMenuView({
+            collection: this.collections.lists
+        });
 
         this.connectGapi();
     };
     App.prototype = {
         views: {},
-        collections: {
-            lists: new TaskLists()
-        },
+        collections: {},
         connectGapi: function () {
             var self = this;
             this.apiManager = new ApiManager(this);
@@ -22,9 +32,7 @@
                 self.collections.lists.fetch({
                     data: { userId: '@me'},
                     success: function(res) {
-                        _.each(res.models, function(model) {
-                            console.log(model.get('title'));
-                        });
+                        self.views.listMenu.render();
                     }
                 });
             });
