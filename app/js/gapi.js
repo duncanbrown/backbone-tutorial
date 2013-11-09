@@ -68,11 +68,14 @@
     };
 
     Backbone.sync = function (method, model, options) {
+        var requestContent = {};
         options || (options = {});
 
         switch (method) {
-
             case 'create':
+                requestContent.resource = model.toJSON();
+                request = gapi.client.tasks[model.url].insert(requestContent);
+                Backbone.gapiRequest(request, method, model, options);
                 break;
             case 'update':
                 break;
@@ -94,8 +97,12 @@
         if (res.error) {
           if (options.error) options.error(res);
         } else if (options.success) {
-          result = res.items;
-          options.success(result, true, request);
+            if (res.items) {
+                result = res.items;
+            } else {
+                result = res;          
+            }
+            options.success(result, true, request);
         }
       });
     };

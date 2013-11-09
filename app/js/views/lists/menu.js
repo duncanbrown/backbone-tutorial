@@ -6,8 +6,12 @@ define(['views/lists/menuitem'], function(ListMenuItemView) {
 		events: {
 
 		},
-		intialize: function() {
-			this.collection.on('add', this.render, this);
+		initialize: function() {
+			this.collection.on('add', this.renderMenuItem, this);
+		},
+		renderMenuItem: function(model) {
+			var item = new ListMenuItemView({model: model});
+			this.$el.append(item.render().el);
 		},
 		render: function() {
 			var $el = $(this.el),

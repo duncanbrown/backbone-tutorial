@@ -1,6 +1,6 @@
 define(function () {
 	var TaskList = Backbone.Model.extend({
-		url: 'taskLists'
+		url: 'tasklists'
 	});
 	return TaskList;
 });
