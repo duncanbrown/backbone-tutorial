@@ -1,8 +1,9 @@
 ﻿define([
     'text!templates/app.html',
-    'views/lists/add'
+    'views/lists/add',
+    'views/lists/edit'
 ],
-function (template, AddListView) {
+function (template, AddListView, EditListView) {
     var AppView = Backbone.View.extend({
         id: 'main',
         tagName: 'div',
@@ -10,7 +11,8 @@ function (template, AddListView) {
         el: 'body',
         template: _.template(template),
         events: {
-            'click #add-list-button': 'addList'
+            'click #add-list-button': 'addList',
+            'click #edit-list-button': 'editList'
         },
         initialize: function () {
 
@@ -25,6 +27,13 @@ function (template, AddListView) {
                 self = this;
             this.$el.find('#list-editor').html(form.render().el);
             form.$el.find('input:first').focus();
+            return false;
+        },
+        editList: function(){
+            var list = bTask.views.activeListMenuItem.model,
+                form = new EditListView({model: list});
+            this.$el.find('#list-editor').html(form.render().el);
+            this.$el.find('input:first').focus();
             return false;
         }
     });

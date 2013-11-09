@@ -24,7 +24,7 @@
     };
     App.prototype = {
         views: {},
-        collections: {},
+        collections: {},        
         connectGapi: function () {
             var self = this;
             this.apiManager = new ApiManager(this);
