@@ -12,7 +12,8 @@ function (template, AddListView, EditListView) {
         template: _.template(template),
         events: {
             'click #add-list-button': 'addList',
-            'click #edit-list-button': 'editList'
+            'click #edit-list-button': 'editList',
+            'click #delete-list-button': 'deleteList'
         },
         initialize: function () {
 
@@ -34,6 +35,10 @@ function (template, AddListView, EditListView) {
                 form = new EditListView({model: list});
             this.$el.find('#list-editor').html(form.render().el);
             this.$el.find('input:first').focus();
+            return false;
+        },
+        deleteList: function(){
+            bTask.views.activeListMenuItem.model.destroy();
             return false;
         }
     });
